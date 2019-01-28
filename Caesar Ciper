@@ -1,0 +1,68 @@
+Main_String = "abcdefghijklmnopqrstuvwxyz"
+
+def encrypt(text,key):
+    
+    encrypt_string = "abcdefghijklmnopqrstuvwxyz" * 2
+    output = " "
+    
+    for char in text:
+        if char in Main_String:
+            index = encrypt_string.index(str(char))
+            output += str(encrypt_string[index + key])
+        else:
+            output += char
+    return output
+    
+def decrypt(text,key):
+    
+    decrypt_string = "zyxwvutsrqponmlkjihgfedcba" * 2
+    
+    output = " "
+
+    for char in text:
+        if char in Main_String:
+            index = decrypt_string.index(str(char))
+            output += str(decrypt_string[index + key])
+        else:
+            output += char
+        return output
+    
+    
+if __name__ == "__main__":
+
+
+    print ("""
+    1.Press 1 for Encryption. \n
+    2.Press 2 for Decryption. \n
+    3.Press 3 for Both.
+    """)
+    
+    choice = input("Which choice: ")
+    
+    if choice == '1':
+        
+        input_txt = input("Enter your text to encrypt: ")
+        key       = input("Enter key between 1 and 25: ")
+        print ("The encrypted text is: " )
+        encrypt(input_txt, key)
+        
+    if choice == '2':
+        
+        input_txt = input("Enter your text to decrypt: ")
+        key       = input("Enter key between 1 and 25: ")
+        print ("The decrypted text is: ")
+        decrypt(input_txt,key)
+        
+    if choice == '3':
+    
+        input_txt = input("Enter your text to both encrypt and decrypt: ")
+        key       = input("Enter key between 1 and 25: ")
+        
+        print ("The encrypted text is: ")
+        encrypt(input_txt,key)
+        
+        print ("The decrypted text is: ")
+        decrypt(input_txt,key)
+        
+    else:
+        print("Invaild Choice")
