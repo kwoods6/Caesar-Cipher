@@ -1,36 +1,36 @@
-Main_String = "abcdefghijklmnopqrstuvwxyz"
+def encrypt(message, key):
+    main_letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    
+    result = ""
 
-def encrypt(text,key):
-    
-    encrypt_string = "abcdefghijklmnopqrstuvwxyz" * 2
-    output = " "
-    
-    for char in text:
-        if char in Main_String:
-            index = encrypt_string.index(str(char))
-            output += str(encrypt_string[index + key])
+    for letter in message:
+        if letter in main_letters:
+            letter_index = (main_letters.find(letter) + key) % len(main_letters)
+
+            result = result + main_letters[letter_index]
         else:
-            output += char
-    return output
-    
-def decrypt(text,key):
-    
-    decrypt_string = "zyxwvutsrqponmlkjihgfedcba" * 2
-    
-    output = " "
+            result = result + letter
 
-    for char in text:
-        if char in Main_String:
-            index = decrypt_string.index(str(char))
-            output += str(decrypt_string[index + key])
+    return result
+
+def decrypt(message, key):
+    main_letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+   
+    result = ""
+
+    for letter in message:
+        if letter in main_letters:
+            letter_index = (main_letters.find(letter) - key) % len(main_letters)
+
+            result = result + main_letters[letter_index]
         else:
-            output += char
-        return output
-    
-    
-if __name__ == "__main__":
+            result = result + letter
 
+    return result
+    
 
+def main():
+    
     print ("""
     1.Press 1 for Encryption. \n
     2.Press 2 for Decryption. \n
@@ -40,29 +40,31 @@ if __name__ == "__main__":
     choice = input("Which choice: ")
     
     if choice == '1':
+        input_txt = input("Enter your text to encrypt: " ).upper()
+        key = int(input("Enter key between 1 and 25: " ))
+        encrypted = encrypt(input_txt, key)
+        print ("The encrypted text is: ", encrypted)
         
-        input_txt = input("Enter your text to encrypt: ")
-        key       = input("Enter key between 1 and 25: ")
-        print ("The encrypted text is: " )
-        encrypt(input_txt, key)
+    elif choice == '2':
         
-    if choice == '2':
+        input_txt = input("Enter your text to decrypt: ").upper()
+        key       = int(input("Enter key between 1 and 25: "))
+        decrypted = decrypt(input_txt,key)
+        print ("The decrypted text is: ", decrypted)
         
-        input_txt = input("Enter your text to decrypt: ")
-        key       = input("Enter key between 1 and 25: ")
-        print ("The decrypted text is: ")
-        decrypt(input_txt,key)
-        
-    if choice == '3':
+    elif choice == '3':
     
-        input_txt = input("Enter your text to both encrypt and decrypt: ")
-        key       = input("Enter key between 1 and 25: ")
+        input_txt = input("Enter your text to both encrypt and decrypt: ").upper()
+        key       = int(input("Enter key between 1 and 25: "))
         
-        print ("The encrypted text is: ")
-        encrypt(input_txt,key)
+        encrypted = encrypt(input_txt, key)
+        print ("The encrypted text is: ", encrypted)
         
-        print ("The decrypted text is: ")
-        decrypt(input_txt,key)
-        
+        decrypted = decrypt(input_txt, key)
+        print ("The decrypted text is: ", decrypted)
+    
     else:
         print("Invaild Choice")
+        
+if __name__ == "__main__":
+    main()
